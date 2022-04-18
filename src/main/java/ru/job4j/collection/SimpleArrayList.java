@@ -32,9 +32,6 @@ public class SimpleArrayList<T> implements List<T> {
     @Override
     public T set(int index, T newValue) {
         T rsl = get(index);
-        if (size == container.length) {
-            container = grow();
-        }
         container[index] = newValue;
         return rsl;
     }
