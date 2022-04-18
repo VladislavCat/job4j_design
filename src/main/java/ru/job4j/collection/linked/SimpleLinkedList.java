@@ -24,16 +24,13 @@ public class SimpleLinkedList<E> implements List<E> {
     @Override
     public E get(int index) {
         Objects.checkIndex(index, size);
-        Node<E> find;
+        Node<E> find = null;
         Node<E> l = head.next;
         for (int i = 0; i <= index; i++) {
             find = l;
             l = find.next;
-            if (i == index) {
-                return find.item();
-            }
         }
-        return null;
+        return find.item;
     }
 
     @Override
