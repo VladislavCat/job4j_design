@@ -3,18 +3,18 @@ package ru.job4j.generics;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class MemStore<T extends Base> implements Store {
+public final class MemStore<T extends Base> implements Store<T> {
 
     private final Map<String, T> storage = new HashMap<>();
 
     @Override
-    public void add(Base model) {
-        storage.putIfAbsent(model.getId(), (T) model);
+    public void add(T model) {
+        storage.putIfAbsent(model.getId(), model);
     }
 
     @Override
-    public boolean replace(String id, Base model) {
-        storage.replace(id, (T) model);
+    public boolean replace(String id, T model) {
+        storage.replace(id, model);
         return findById(id) == model;
     }
 
@@ -25,12 +25,7 @@ public final class MemStore<T extends Base> implements Store {
     }
 
     @Override
-    public Base findById(String id) {
-        return storage.keySet()
-                .stream()
-                .filter(s -> s.equals(id))
-                .map(storage::get)
-                .findFirst()
-                .orElse(null);
+    public T findById(String id) {
+        return storage.get(id) != null ? storage.get(id) : null;
     }
 }
