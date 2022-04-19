@@ -9,7 +9,7 @@ public class SimpleArrayList<T> implements List<T> {
     private int size;
 
     private int modCount;
-
+    @SuppressWarnings("unchecked")
     public SimpleArrayList(int capacity) {
         this.container = (T[]) new Object[capacity];
     }
