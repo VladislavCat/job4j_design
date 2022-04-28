@@ -33,11 +33,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public V get(K key) {
         V value = null;
-        for (MapEntry<K, V> elem : table) {
-            if (elem != null && key.equals(elem.key)) {
-                value = elem.value;
-                break;
-            }
+        int i = indexFor(hash(key.hashCode())) & (table.length - 1);
+        if (table[i] != null && key.equals(table[i].key)) {
+            value = table[i].value;
         }
         return value;
     }
@@ -45,18 +43,15 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public boolean remove(K key) {
         boolean rsl = false;
-        for (int i = 0; i < table.length; i++) {
-            if (table[i] != null && key.equals(table[i].key)) {
+        int i = indexFor(hash(key.hashCode())) & (table.length - 1);
+        if (table[i] != null && key.equals(table[i].key)) {
                 table[i] = null;
                 rsl = true;
                 count--;
                 modCount--;
-                break;
-            }
         }
         return rsl;
     }
-
 
     private int hash(int hashCode) {
         return hashCode == 0 ? 0 : hashCode ^ hashCode >>> 16;
@@ -124,12 +119,12 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 return false;
             }
             MapEntry<K, V> mapEntry = (MapEntry<K, V>) o;
-            return Objects.equals(key, mapEntry.key) && Objects.equals(value, mapEntry.value);
+            return Objects.equals(key, mapEntry.key);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(key, value);
+            return 31 * key.hashCode();
         }
     }
 }
