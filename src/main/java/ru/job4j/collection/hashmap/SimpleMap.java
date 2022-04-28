@@ -15,10 +15,10 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean put(K key, V value) {
-        if (count / capacity >= LOAD_FACTOR) {
+        if (LOAD_FACTOR * capacity <= count) {
             expand();
         }
-        int i = indexFor(hash(key.hashCode())) & (table.length - 1);
+        int i = indexFor(hash(key.hashCode()));
         boolean rsl = i >= 0 && i < table.length;
         if (rsl) {
             if (table[i] == null) {
@@ -33,7 +33,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public V get(K key) {
         V value = null;
-        int i = indexFor(hash(key.hashCode())) & (table.length - 1);
+        int i = indexFor(hash(key.hashCode()));
         if (table[i] != null && key.equals(table[i].key)) {
             value = table[i].value;
         }
@@ -43,7 +43,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public boolean remove(K key) {
         boolean rsl = false;
-        int i = indexFor(hash(key.hashCode())) & (table.length - 1);
+        int i = indexFor(hash(key.hashCode()));
         if (table[i] != null && key.equals(table[i].key)) {
                 table[i] = null;
                 rsl = true;
@@ -58,16 +58,15 @@ public class SimpleMap<K, V> implements Map<K, V> {
     }
 
     private int indexFor(int hash) {
-        return (table.length - 1) ^ hash;
+        return ((table.length - 1) ^ hash) & (capacity - 1);
     }
 
     private void expand() {
-        int volume = capacity == 0 ? 16 : capacity * 2;
-        MapEntry<K, V>[] tableExpand = new MapEntry[volume];
+        capacity = capacity * 2;
+        MapEntry<K, V>[] tableExpand = new MapEntry[capacity];
         for (MapEntry<K, V> kvMapEntry : table) {
             if (kvMapEntry != null) {
-                tableExpand[indexFor(hash(kvMapEntry.hashCode()))
-                        & (volume - 1)] = kvMapEntry;
+                tableExpand[indexFor(hash(kvMapEntry.hashCode()))] = kvMapEntry;
             }
         }
         table = tableExpand;
