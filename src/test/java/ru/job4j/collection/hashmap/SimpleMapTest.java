@@ -25,7 +25,7 @@ public class SimpleMapTest {
         test.put("Peltor", 21);
         test.put("Meta", 11);
         int rsl = test.get("Meta");
-        Assert.assertEquals(rsl, 11);
+        Assert.assertEquals(rsl, 2);
     }
 
     @Test
@@ -79,7 +79,7 @@ public class SimpleMapTest {
         test.put("Peltor", "21");
         Iterator<String> iterator = test.iterator();
         iterator.next();
-        test.put("Tolkien", "Error");
+        test.put("Tol", "Error");
         iterator.next();
     }
 

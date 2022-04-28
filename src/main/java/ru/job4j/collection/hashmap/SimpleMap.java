@@ -19,7 +19,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
             expand();
         }
         int i = indexFor(hash(key.hashCode()));
-        boolean rsl = i >= 0 && i < table.length;
+        boolean rsl = table[i] == null;
         if (rsl) {
             if (table[i] == null) {
                 count++;
