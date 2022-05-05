@@ -4,11 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Stream;
 
 public class Config {
 
     private final String path;
-    private final Map<String, String> values = new HashMap<String, String>();
+    private final Map<String, String> values = new HashMap<>();
 
     public Config(final String path) {
         this.path = path;
@@ -17,19 +18,21 @@ public class Config {
     public void load() {
         StringJoiner out = new StringJoiner(System.lineSeparator());
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
-            List<String> strList = read.lines().filter(s -> s.length() >= 1).toList();
-            for (String s : strList) {
-                String[] arrStr = new String[2];
-                arrStr[0] = s.substring(0, s.indexOf("="));
-                arrStr[1] = s.substring(s.indexOf("=") + 1);
-                if (arrStr[1].equals("") || arrStr[0].equals("")) {
-                    throw new IllegalArgumentException();
-                }
-                values.put(arrStr[0], arrStr[1]);
-            }
+            read.lines()
+                    .filter(s -> s.length() >= 1)
+                    .filter(s -> s.charAt(0) != 35)
+                    .filter(this::checkException)
+                    .forEach(s -> values.put(s.substring(0, s.indexOf("=")), s.substring(s.indexOf("=") + 1)));
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean checkException(String s) {
+        if ("".equals(s.substring(0, s.indexOf("="))) || "".equals(s.substring(s.indexOf("=") + 1))) {
+            throw new IllegalArgumentException();
+        }
+        return true;
     }
 
     public String value(String key) {
