@@ -19,8 +19,8 @@ public class Config {
         StringJoiner out = new StringJoiner(System.lineSeparator());
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             read.lines()
-                    .filter(s -> s.length() >= 1)
-                    .filter(s -> s.charAt(0) != 35)
+                    .filter(s -> !(s.isEmpty()))
+                    .filter(s -> !(s.startsWith("#")))
                     .filter(this::checkException)
                     .forEach(s -> values.put(s.substring(0, s.indexOf("=")), s.substring(s.indexOf("=") + 1)));
         } catch (IOException e) {
@@ -29,7 +29,7 @@ public class Config {
     }
 
     private boolean checkException(String s) {
-        if ("".equals(s.substring(0, s.indexOf("="))) || "".equals(s.substring(s.indexOf("=") + 1))) {
+        if ((s.substring(0, s.indexOf("=")).isEmpty() || (s.substring(s.indexOf("=") + 1)).isEmpty())) {
             throw new IllegalArgumentException();
         }
         return true;
