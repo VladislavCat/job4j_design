@@ -18,7 +18,7 @@ public class Dir {
         }
         System.out.println(String.format("size : %s", file.getTotalSpace()));
         for (File subfile : file.listFiles()) {
-            int sizeSubFile = volumeDirectory(subfile);
+            long sizeSubFile = volumeDirectory(subfile);
             System.out.println(String.valueOf(subfile.getAbsoluteFile()) + " " + sizeSubFile);
         }
     }
