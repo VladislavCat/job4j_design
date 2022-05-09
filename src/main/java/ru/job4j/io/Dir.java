@@ -23,8 +23,8 @@ public class Dir {
         }
     }
 
-    private static int volumeDirectory(File file) {
-        int rsl = 0;
+    private static long volumeDirectory(File file) {
+        long rsl = 0;
         if (file.isDirectory()) {
             for (File file1 : file.listFiles()) {
                 rsl += volumeDirectory(file1);
