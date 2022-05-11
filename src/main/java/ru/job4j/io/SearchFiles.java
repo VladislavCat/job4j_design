@@ -5,13 +5,14 @@ import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.nio.file.Path;
 
 public class SearchFiles extends SimpleFileVisitor<Path> {
     private Predicate<Path> predicate;
-    private List<Path> pathsList;
+    private List<Path> pathsList = new ArrayList<>();
 
     public SearchFiles(Predicate<Path> predicate) {
         this.predicate = predicate;
