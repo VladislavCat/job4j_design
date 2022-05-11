@@ -22,8 +22,8 @@ public class Search {
     }
 
     public static void checkArguments(String[] args) {
-        if (args.length < 2) {
-            throw new IllegalArgumentException("Не указаны аргументы");
+        if (args.length != 2) {
+            throw new IllegalArgumentException("Указано неверное количество аргументов");
         }
         File tmpFile = new File(args[0]);
         if (!tmpFile.isDirectory()) {
