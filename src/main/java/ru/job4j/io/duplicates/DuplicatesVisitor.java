@@ -16,7 +16,7 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
         FileProperty tmpFP = new FileProperty(file.toFile().length(), file.getFileName().toString());
         if (setOriginalFile.containsKey(tmpFP)) {
             duplicatesPath.putIfAbsent(file.toFile().getAbsolutePath(), tmpFP);
-            duplicatesPath.putIfAbsent(setOriginalFile.get(tmpFP), tmpFP);
+            duplicatesPath.put(setOriginalFile.get(tmpFP), tmpFP);
         }
         setOriginalFile.put(tmpFP, file.toFile().getAbsolutePath());
         return super.visitFile(file, attrs);
