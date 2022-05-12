@@ -17,9 +17,13 @@ public class ArgsName {
 
     private void parse(String[] args) {
         for (String s : args) {
+            if (!s.contains("=")) {
+                throw new IllegalArgumentException();
+            }
             String tmpArgsSt1 = s.substring(0, s.indexOf("="));
             String tmpArgsSt2 = s.substring(s.indexOf("=") + 1);
-            if (tmpArgsSt2.isEmpty()) {
+            if (tmpArgsSt2.isEmpty() || !tmpArgsSt1.startsWith("-")
+                    || (tmpArgsSt1.startsWith("-") && tmpArgsSt1.length() == 1)) {
                 throw new IllegalArgumentException("Аргументы указаны неверно");
             }
             values.put(tmpArgsSt1.substring(1), tmpArgsSt2);
@@ -28,6 +32,9 @@ public class ArgsName {
 
     public static ArgsName of(String[] args) {
         ArgsName names = new ArgsName();
+        if (args.length == 0) {
+            throw new IllegalArgumentException();
+        }
         names.parse(args);
         return names;
     }
