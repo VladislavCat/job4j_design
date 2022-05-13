@@ -2,6 +2,7 @@ package ru.job4j.io;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class ArgsName {
@@ -15,17 +16,24 @@ public class ArgsName {
         return values.get(key);
     }
 
+    public Map<String, String> getAllValues() {
+        return values;
+    }
+
+    private void checkString(String str, Predicate<String> predicate) {
+        if (predicate.test(str)) {
+            throw new IllegalArgumentException("Неверно указаны аргументы");
+        }
+    }
+
     private void parse(String[] args) {
         for (String s : args) {
-            if (!s.contains("=")) {
-                throw new IllegalArgumentException();
-            }
+            checkString(s, s1 -> !s1.contains("="));
             String tmpArgsSt1 = s.substring(0, s.indexOf("="));
             String tmpArgsSt2 = s.substring(s.indexOf("=") + 1);
-            if (tmpArgsSt2.isEmpty() || !tmpArgsSt1.startsWith("-")
-                    || (tmpArgsSt1.startsWith("-") && tmpArgsSt1.length() == 1)) {
-                throw new IllegalArgumentException("Аргументы указаны неверно");
-            }
+            checkString(tmpArgsSt1, s1 -> !s1.startsWith("-")
+                    || (tmpArgsSt1.startsWith("-") && tmpArgsSt1.length() == 1));
+            checkString(tmpArgsSt2, String::isEmpty);
             values.put(tmpArgsSt1.substring(1), tmpArgsSt2);
         }
     }
@@ -33,7 +41,7 @@ public class ArgsName {
     public static ArgsName of(String[] args) {
         ArgsName names = new ArgsName();
         if (args.length == 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Аргументы указаны неверно");
         }
         names.parse(args);
         return names;
