@@ -28,11 +28,10 @@ public class ArgsName {
 
     private void parse(String[] args) {
         for (String s : args) {
-            checkString(s, s1 -> !s1.contains("="));
+            checkString(s, s1 -> !s1.contains("=")
+                    || !s1.startsWith("-") || s1.startsWith("-="));
             String tmpArgsSt1 = s.substring(0, s.indexOf("="));
             String tmpArgsSt2 = s.substring(s.indexOf("=") + 1);
-            checkString(tmpArgsSt1, s1 -> !s1.startsWith("-")
-                    || (tmpArgsSt1.startsWith("-") && tmpArgsSt1.length() == 1));
             checkString(tmpArgsSt2, String::isEmpty);
             values.put(tmpArgsSt1.substring(1), tmpArgsSt2);
         }
