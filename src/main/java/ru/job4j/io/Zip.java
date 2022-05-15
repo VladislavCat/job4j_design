@@ -35,18 +35,31 @@ public class Zip {
     }
 
     public static void main(String[] args) throws IOException {
+        if (args.length != 3) {
+            throw new IllegalArgumentException("Неверно указаны аргументы");
+        }
         Zip zip = new Zip();
         ArgsName argsName = ArgsName.of(args);
         List<String> argsValues = new ArrayList<>(argsName.getAllValues().values());
-        if (argsValues.size() != 3) {
+        zip.checkArgs(argsValues);
+        zip.packFiles(zip.findAllFile(argsValues), new File(argsValues.get(2)));
+        zip.packSingleFile(new File("pom.xml"), new File(".pom.zip"));
+    }
+
+    private void checkArgs(List<String> args) {
+        if (!new File(args.get(0)).isDirectory()) {
             throw new IllegalArgumentException("Неверно указаны аргументы");
         }
-        List<File> fileList = Search.search(Path.of(argsValues.get(0)),
-                s -> s.getFileName().toString().endsWith(argsValues.get(1)))
+        if (!args.get(1).startsWith(".")) {
+            throw new IllegalArgumentException("Неверно указаны аргументы");
+        }
+    }
+
+    private List<File> findAllFile(List<String> args) throws IOException {
+        return Search.search(Path.of(args.get(0)),
+                        s -> !(s.getFileName().toString().endsWith(args.get(1))))
                 .stream()
                 .map(Path::toFile)
                 .toList();
-        zip.packFiles(fileList, new File(argsValues.get(2)));
-        zip.packSingleFile(new File("pom.xml"), new File(".pom.zip"));
     }
 }
