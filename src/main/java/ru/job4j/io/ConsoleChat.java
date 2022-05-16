@@ -25,12 +25,12 @@ public class ConsoleChat {
         List<String> phrases = readPhrases();
         do {
             String s = scanner.nextLine();
-            if (s.equals(STOP)) {
+            if (STOP.equals(s)) {
                 talking = false;
-            } else if (s.equals(OUT)) {
+            } else if (OUT.equals(s)) {
                 talking = false;
                 running = false;
-            } else if (s.equals(CONTINUE)) {
+            } else if (CONTINUE.equals(s)) {
                 talking = true;
             }
             log.add(s);
