@@ -50,6 +50,10 @@ public class CSVReader {
     }
 
     private static void checkArgs(ArgsName argsName) {
+        File f = new File(argsName.get("path"));
+        if (!f.exists() || !f.isFile()) {
+            throw new IllegalArgumentException("Указанный файл не существует или не является файлом");
+        }
         if (!argsName.get("path").endsWith(".csv")) {
             throw new IllegalArgumentException("Указан не csv-файл");
         }
