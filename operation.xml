@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<operation flag ="true" priorityOperation = "1" symbolOperation = "-">
+    <op name = "subtraction" type = "binary operation"/>
+    <numbers>
+        <number>48</number>
+        <number>12</number>
+    </numbers>
+</operation>
