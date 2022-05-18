@@ -1,13 +1,28 @@
 package ru.job4j.serialization;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.*;
+import java.io.StringWriter;
 import java.util.Arrays;
-
+@XmlRootElement(name = "operation")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Operation {
-    private final boolean flag;
-    private final int priorityOperation;
-    private final String symbolOperation;
-    private final OperationType op;
-    private final int[] numbers;
+    @XmlAttribute
+    private boolean flag;
+    @XmlAttribute
+    private int priorityOperation;
+    @XmlAttribute
+    private String symbolOperation;
+    private OperationType op;
+    @XmlElementWrapper(name = "numbers")
+    @XmlElement(name = "number")
+    private int[] numbers;
+
+    public Operation() {
+
+    }
 
     public Operation(boolean flag, int priorityOperation,
                      String symbolOperation, int[] numbers, OperationType op) {
@@ -48,4 +63,21 @@ public class Operation {
                 + ", numbers=" + Arrays.toString(numbers)
                 + '}';
     }
+
+    public static void main(String[] args) throws JAXBException {
+        final Operation div = new Operation(false,
+                30, "/", new int[]{1, 2},
+                new OperationType("division", "binary operation"));
+        JAXBContext context = JAXBContext.newInstance(Operation.class);
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+
+        try (StringWriter writer = new StringWriter()) {
+            marshaller.marshal(div, writer);
+            String result = writer.getBuffer().toString();
+            System.out.println(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        }
 }
