@@ -43,6 +43,6 @@ public class JsonConvertOperation {
         jsonObject.put("numbers", jsonNumbers);
         jsonObject.put("op", jsonOP);
         System.out.println(jsonObject);
-        System.out.println(new JSONObject(operationTwo).put("op", jsonOP));
+        System.out.println(new JSONObject(operationTwo));
     }
 }
