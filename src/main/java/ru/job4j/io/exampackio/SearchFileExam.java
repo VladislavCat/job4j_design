@@ -42,15 +42,9 @@ public class SearchFileExam {
     Создание фильтра типа поиска для маски данных
      */
     private static String createExtensionForMask(String s) {
-        String rsl = "";
-        char symbolString = s.charAt(s.length() - 1);
-        for (int i = 2; i < s.length(); i++) {
-            if (symbolString != '?' && symbolString != '*') {
-                rsl = symbolString + rsl;
-            }
-            symbolString = s.charAt(s.length() - i);
-        }
-        return rsl;
+        return s.replace(".", "[.]")
+                .replace("*", ".*")
+                .replace("?", ".");
     }
 
     /**
@@ -63,7 +57,7 @@ public class SearchFileExam {
             rsl = s -> s.getFileName().toString().equals(fileName);
         } else if ("mask".equals(typeFind)) {
             String key = createExtensionForMask(fileName);
-            rsl = s -> s.getFileName().toString().endsWith(key);
+            rsl = createPredicateFromAllType("regex", key);
         } else if ("regex".equals(typeFind)) {
             rsl = path -> Pattern.compile(fileName).matcher(path.getFileName().toString()).find();
         }
