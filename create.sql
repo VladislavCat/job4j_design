@@ -19,17 +19,17 @@ create table state(
 	id serial primary key,
 	state_name varchar(255)
 );
-create table item(
-	id serial primary key,
-	item_name varchar(255),
-	item_category int references category(id),
-	item_state int references state(id)
-);
 create table users(
 	id serial primary key,
 	name_user varchar(255),
 	role_user int references role(id),
-	item_user int references item(id)
+);
+create table item(
+	id serial primary key,
+	item_name varchar(255),
+	user_item int references user(id),
+	item_category int references category(id),
+	item_state int references state(id)
 );
 create table comments(
 	id serial primary key,
