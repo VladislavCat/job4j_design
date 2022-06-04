@@ -26,6 +26,17 @@ INSERT INTO people(name) VALUES('Гриша'),
 ('Иван');
 INSERT INTO devices_people(people_id, device_id) VALUES(1, 1),(1, 4),(2, 3),(2, 1),(3, 3),(3, 2),(4, 1),(4, 3);
 
+SELECT AVG(price) AS Средняя_цена_устройств FROM devices;
+
+SELECT p.name, 
+AVG(d.price) AS Средняя_цена_гаджетов
+FROM devices_people AS dp
+JOIN devices AS d
+ON dp.device_id = d.id
+JOIN people AS p
+ON dp.people_id = p.id
+GROUP BY p.name;
+
 SELECT p.name, 
 AVG(d.price) AS Средняя_цена_гаджетов
 FROM devices_people AS dp
