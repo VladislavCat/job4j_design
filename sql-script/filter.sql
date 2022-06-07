@@ -46,7 +46,7 @@ SELECT name AS Название_продукта
 FROM product
 WHERE expired_date < CURRENT_DATE;
 
-SELECT name FROM product WHERE price = MAX(price);
+SELECT name FROM product WHERE price = (SELECT MAX(price) from product);
 
 SELECT t.name, COUNT(t.id_type = p.type_id)
 FROM type AS t
