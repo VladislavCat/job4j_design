@@ -15,10 +15,10 @@ public class Config {
         this.path = path;
     }
 
-    public void load() {
+    public Map<String, String> load() {
         StringJoiner out = new StringJoiner(System.lineSeparator());
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
-            read.lines()
+             read.lines()
                     .filter(s -> !(s.isEmpty()))
                     .filter(s -> !(s.startsWith("#")))
                     .filter(this::checkException)
@@ -26,6 +26,7 @@ public class Config {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return values;
     }
 
     private boolean checkException(String s) {
@@ -53,5 +54,4 @@ public class Config {
     public static void main(String[] args) {
         System.out.println(new Config("app.properties"));
     }
-
 }
