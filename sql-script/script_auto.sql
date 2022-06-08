@@ -11,28 +11,28 @@ select a.name as Название_машины,
 e.name as Название_двигателя, c.name as Название_кузова,
 t.name as Название_коробки_передач
 from auto as a
-full join engine as e
+left join engine as e
 on a.engine_id = e.id_engine
-full join carcase as c
+left join carcase as c
 on a.carcase_id = c.id_carcase
-full join transmission as t
+left join transmission as t
 on a.transmission_id = t.id_transmission
 where a.name is not null;
 
 select e.name as Название_двигателя
-from auto as a
-full join engine as e
-on a.engine_id = e.id_engine
+from engine as e
+left join auto as a
+on e.id_engine = a.engine_id
 where a.name is null;
 
 select c.name as Название_каркаса
-from auto as a
-full join carcase as c
-on a.carcase_id = c.id_carcase
+from carcase as c
+left join auto as a
+on c.id_carcase = a.carcase_id;
 where a.name is null;
 
 select t.name as Название_коробки_передач
-from auto as a
-full join transmission as t
-on a.transmission_id = t.id_transmission
+from transmission as t
+left join auto as a
+on t.id_transmission = a.transmission_id
 where a.name is null;
