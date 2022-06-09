@@ -23,9 +23,19 @@ public class ImportDB {
     public List<User> load() throws IOException {
         List<User> users = new ArrayList<>();
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
-            rd.lines().map(s -> new User(s.split(";")[0], s.split(";")[1])).forEach(users::add);
+            for (String s : rd.lines().toList()) {
+                validateString(s);
+                users.add(new User(s.split(";")[0], s.split(";")[1]));
+            }
         }
         return users;
+    }
+
+    private static void validateString(String s) {
+        String[] arr = s.split(";");
+        if (arr.length != 2 || arr[0] == null || arr[1] == null) {
+            throw new IllegalArgumentException();
+        }
     }
 
     public void save(List<User> users) throws ClassNotFoundException, SQLException {
