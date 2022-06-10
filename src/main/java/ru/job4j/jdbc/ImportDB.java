@@ -24,16 +24,16 @@ public class ImportDB {
         List<User> users = new ArrayList<>();
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
             for (String s : rd.lines().toList()) {
-                validateString(s);
-                users.add(new User(s.split(";")[0], s.split(";")[1]));
+                String[] tmpArr = s.split(";");
+                validateString(tmpArr);
+                users.add(new User(tmpArr[0], tmpArr[1]));
             }
         }
         return users;
     }
 
-    private static void validateString(String s) {
-        String[] arr = s.split(";");
-        if (arr.length != 2 || arr[0] == null || arr[1] == null) {
+    private static void validateString(String[] s) {
+        if (s.length != 2 || s[0].isBlank() || s[1].isBlank()) {
             throw new IllegalArgumentException();
         }
     }
@@ -68,7 +68,8 @@ public class ImportDB {
 
     public static void main(String[] args) throws Exception {
         Properties cfg = new Properties();
-        try (FileInputStream in = new FileInputStream("app.properties")) {
+        try (InputStream in = TableEditor.class.getClassLoader()
+                .getResourceAsStream("app.properties")) {
             cfg.load(in);
         }
         ImportDB db = new ImportDB(cfg, "./dump.txt");
