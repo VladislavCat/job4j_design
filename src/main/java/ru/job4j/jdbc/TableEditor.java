@@ -1,6 +1,7 @@
 package ru.job4j.jdbc;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -88,18 +89,20 @@ public class TableEditor implements AutoCloseable {
 
     public static void main(String[] args) throws Exception {
         Properties properties = new Properties();
-        try (InputStream in = TableEditor.class.getClassLoader().getResourceAsStream("app.properties")) {
+        try (InputStream in = TableEditor.class.getClassLoader()
+                .getResourceAsStream("app.properties")) {
             properties.load(in);
         }
-        TableEditor tr = new TableEditor(properties);
-        tr.createTable("test_table");
-        System.out.println(getTableScheme(tr.connection, "test_table"));
-        tr.addColumn("test_table", "name_column", "varchar(30)");
-        System.out.println(getTableScheme(tr.connection, "test_table"));
-        tr.renameColumn("test_table", "name_column", "clear_name");
-        System.out.println(getTableScheme(tr.connection, "test_table"));
-        tr.dropColumn("test_table", "clear_name");
-        System.out.println(getTableScheme(tr.connection, "test_table"));
-        tr.dropTable("test_table");
+        try (TableEditor tr = new TableEditor(properties)) {
+            tr.createTable("test_table");
+            System.out.println(getTableScheme(tr.connection, "test_table"));
+            tr.addColumn("test_table", "name_column", "varchar(30)");
+            System.out.println(getTableScheme(tr.connection, "test_table"));
+            tr.renameColumn("test_table", "name_column", "clear_name");
+            System.out.println(getTableScheme(tr.connection, "test_table"));
+            tr.dropColumn("test_table", "clear_name");
+            System.out.println(getTableScheme(tr.connection, "test_table"));
+            tr.dropTable("test_table");
+        }
     }
 }
