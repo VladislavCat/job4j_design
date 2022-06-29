@@ -5,10 +5,10 @@ import java.util.Scanner;
 public class Emulator {
     private static Scanner scanner;
     private static DirFileCache dfc;
-    private final static byte ONE = 1;
-    private final static byte TWO = 2;
-    private final static byte THREE = 3;
-    private final static byte FOUR = 4;
+    private final static byte DIRECTORY = 1;
+    private final static byte ADDTOCASH = 2;
+    private final static byte FINDCAHSFILE = 3;
+    private final static byte CLOSE = 4;
 
     public static void showMenu() {
         System.out.println("""
@@ -25,19 +25,19 @@ public class Emulator {
         Emulator emulator = new Emulator();
         while (run) {
             int i = emulator.askInt("Введите номер нужного запроса: ");
-            if (i == ONE) {
+            if (i == DIRECTORY) {
                 emulator.createDFC();
-            } else if (i == TWO) {
+            } else if (i == ADDTOCASH) {
                 if (dfc == null) {
                     emulator.createDFC();
                 }
                 dfc.get(emulator.askStr("Введите имя файла: "));
-            } else if (i == THREE) {
+            } else if (i == FINDCAHSFILE) {
                 if (dfc == null) {
                     emulator.createDFC();
                 }
                 System.out.println(dfc.get(emulator.askStr("Введите имя файла: ")));
-            } else if (i == FOUR) {
+            } else if (i == CLOSE) {
                 run = false;
             }
         }
