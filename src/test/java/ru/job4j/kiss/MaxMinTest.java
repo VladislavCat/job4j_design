@@ -1,11 +1,9 @@
 package ru.job4j.kiss;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -14,12 +12,7 @@ public class MaxMinTest {
 
     @Before
     public void initComparator() {
-        comparator = new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                return o1.compareTo(o2);
-            }
-        };
+        comparator = Integer::compareTo;
     }
 
     @Test
