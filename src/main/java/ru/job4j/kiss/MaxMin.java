@@ -6,11 +6,11 @@ import java.util.function.BiPredicate;
 
 public class MaxMin {
     public <T> T max(List<T> value, Comparator<T> comparator) {
-        return findElem(value, (o1, o2) -> comparator.compare(o1, o2) > 0);
+        return value.isEmpty() ? null : findElem(value, (o1, o2) -> comparator.compare(o1, o2) > 0);
     }
 
     public <T> T min(List<T> value, Comparator<T> comparator) {
-        return findElem(value, (o1, o2) -> comparator.compare(o1, o2) < 0);
+        return value.isEmpty() ? null : findElem(value, (o1, o2) -> comparator.compare(o1, o2) < 0);
     }
 
     public <T> T findElem(List<T> value, BiPredicate<T, T> comparator) {

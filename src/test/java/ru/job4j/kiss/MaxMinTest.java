@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
+
 import java.util.Comparator;
 import java.util.List;
 
@@ -25,5 +27,10 @@ public class MaxMinTest {
     public void whenFindMinNum() {
         assertThat(new MaxMin().min(List.of(2, 18, 22, 109, 12, 1), comparator),
                 is(1));
+    }
+
+    @Test
+    public void whenNullList() {
+        assertThat(new MaxMin().max(List.of(), comparator), is(nullValue()));
     }
 }
