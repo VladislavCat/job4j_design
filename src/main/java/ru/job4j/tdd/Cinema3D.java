@@ -18,14 +18,4 @@ public class Cinema3D implements Cinema {
     @Override
     public void add(Session session) {
     }
-
-    @Override
-    public Ticket reschedule(Ticket ticket, Calendar newDate) {
-        return null;
-    }
-
-    @Override
-    public boolean deleteTicket(Ticket ticket) {
-        return false;
-    }
 }
