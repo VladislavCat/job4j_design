@@ -32,13 +32,32 @@ public class CinemaTest {
 
     @Ignore
     @Test(expected = IllegalArgumentException.class)
-    public void whenInvalidPlace() { }
+    public void whenInvalidPlace() {
+        Account account = new AccountCinema();
+        Cinema cinema = new Cinema3D();
+        Calendar date = Calendar.getInstance();
+        date.set(2020, Calendar.DECEMBER, 13, 19, 30);
+        cinema.buy(account, -1, -1, date);
+    }
 
     @Ignore
     @Test(expected = IllegalArgumentException.class)
-    public void whenInvalidDate() { }
+    public void whenInvalidDate() {
+        Account account = new AccountCinema();
+        Cinema cinema = new Cinema3D();
+        Calendar date = Calendar.getInstance();
+        date.set(2020, Calendar.DECEMBER, 45, 25, 30);
+        cinema.buy(account, 1, 1, date);
+    }
 
     @Ignore
     @Test(expected = IllegalArgumentException.class)
-    public void whenOccupiedPlace() { }
+    public void whenOccupiedPlace() {
+        Account account = new AccountCinema();
+        Cinema cinema = new Cinema3D();
+        Calendar date = Calendar.getInstance();
+        date.set(2020, Calendar.DECEMBER, 13, 19, 30);
+        cinema.buy(account, 1, 1, date);
+        cinema.buy(account, 1, 1, date);
+    }
 }
