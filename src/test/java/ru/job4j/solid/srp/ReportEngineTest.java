@@ -12,7 +12,6 @@ import java.util.Calendar;
 
 public class ReportEngineTest {
 
-    @Ignore
     @Test
     public void whenOldGenerated() {
         MemStore store = new MemStore();
@@ -32,7 +31,7 @@ public class ReportEngineTest {
     }
 
     @Test
-    public void whenNewGenerated() {
+    public void whenHtmlGenerated() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);
@@ -41,18 +40,18 @@ public class ReportEngineTest {
         store.add(worker);
         worker = new Employee("Sema", now, now, 3212);
         store.add(worker);
-        Report engine = new ReportEngine(store);
+        Report engine = new ReportHtmlEngine(store);
         String ln = System.lineSeparator();
         StringBuilder expect = new StringBuilder()
-                .append("<!DOCTYPE html>").append(ln)
-                .append("<head><meta charset=\"utf-8\">").append(ln)
-                .append("<title>Employees Report</title>").append(ln)
-                .append("</head>").append(ln).append("<body>").append(ln)
-                .append("<h1>Name;Salary;</h1>").append(ln)
-                .append("<h3>Sema;53,53$;</h3>").append(ln)
-                .append("<h3>Vasya;3,37$;</h3>").append(ln)
-                .append("<h3>Ivan;1,67$;</h3>").append(ln)
-                .append("</body>").append(ln).append("</html>");
+                    .append("<!DOCTYPE html>").append(ln)
+                    .append("<head><meta charset=\"utf-8\">").append(ln)
+                    .append("<title>Employees Report</title>").append(ln)
+                    .append("</head>").append(ln).append("<body>").append(ln)
+                    .append("<h1>Name;Salary;</h1>").append(ln)
+                    .append("<h3>Sema;53,53$;</h3>").append(ln)
+                    .append("<h3>Vasya;3,37$;</h3>").append(ln)
+                    .append("<h3>Ivan;1,67$;</h3>").append(ln)
+                    .append("</body>").append(ln).append("</html>");
         assertEquals(expect.toString(), engine.generate(em -> true));
     }
 }
