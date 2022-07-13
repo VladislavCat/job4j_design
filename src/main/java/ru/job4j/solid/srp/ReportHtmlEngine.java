@@ -26,7 +26,8 @@ public class ReportHtmlEngine implements Report {
         employees.sort(((em1, em2) -> Double.compare(em2.getSalary(), em1.getSalary())));
         for (Employee employee : employees) {
             text.append("<h3>").append(employee.getName()).append(";")
-                    .append(new DecimalFormat("#0.00").format(employee.getSalary() / 60).concat("$;</h3>"))
+                    .append(new DecimalFormat("#0.00").format(employee.getSalary() / 60)
+                            .replace(",", ".").concat("$;</h3>"))
                     .append(System.lineSeparator());
         }
         text.append("</body>").append(ln).append("</html>");

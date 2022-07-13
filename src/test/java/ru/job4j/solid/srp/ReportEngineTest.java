@@ -48,9 +48,9 @@ public class ReportEngineTest {
                     .append("<title>Employees Report</title>").append(ln)
                     .append("</head>").append(ln).append("<body>").append(ln)
                     .append("<h1>Name;Salary;</h1>").append(ln)
-                    .append("<h3>Sema;53,53$;</h3>").append(ln)
-                    .append("<h3>Vasya;3,37$;</h3>").append(ln)
-                    .append("<h3>Ivan;1,67$;</h3>").append(ln)
+                    .append("<h3>Sema;53.53$;</h3>").append(ln)
+                    .append("<h3>Vasya;3.37$;</h3>").append(ln)
+                    .append("<h3>Ivan;1.67$;</h3>").append(ln)
                     .append("</body>").append(ln).append("</html>");
         assertEquals(expect.toString(), engine.generate(em -> true));
     }
