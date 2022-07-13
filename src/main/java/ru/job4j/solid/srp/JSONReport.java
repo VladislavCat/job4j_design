@@ -24,17 +24,4 @@ public class JSONReport implements Report {
         }
         return text.toString();
     }
-
-    public static void main(String[] args) {
-        MemStore store = new MemStore();
-        Calendar now = Calendar.getInstance();
-        Employee worker = new Employee("Ivan", now, now, 100);
-        store.add(worker);
-        worker = new Employee("Vasya", now, now, 202);
-        store.add(worker);
-        worker = new Employee("Sema", now, now, 3212);
-        store.add(worker);
-        Report engine = new JSONReport(store);
-        System.out.println(engine.generate(em -> true));
-    }
 }
