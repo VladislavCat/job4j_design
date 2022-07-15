@@ -29,7 +29,7 @@ public class HTMLReport implements Report {
             text.append("<h3>").append(employee.getName()).append(";")
                     .append(DATE_FORMAT.format(employee.getHired().getTime())).append(";")
                     .append(DATE_FORMAT.format(employee.getFired().getTime())).append(";")
-                    .append(decimalFormat.format(employee.getSalary()))
+                    .append(decimalFormat.format(employee.getSalary()).replace('.', ','))
                     .append(";</h3>")
                     .append(System.lineSeparator());
         }
