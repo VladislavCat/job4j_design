@@ -24,7 +24,7 @@ public class HTMLReportTest {
                 .append("<h1>Name;Hired;Fired;Salary;</h1>").append(ln)
                 .append("<h3>Sema;").append((DATE_FORMAT.format(now.getTime()))).append(";")
                 .append((DATE_FORMAT.format(now.getTime()))).append(";")
-                .append("3212.00;</h3>").append(ln)
+                .append("3212,00;</h3>").append(ln)
                 .append("</body>").append(ln).append("</html>");
         assertEquals(expect.toString(), engine.generate(em -> true));
     }

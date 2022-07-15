@@ -9,8 +9,8 @@ import java.util.function.Predicate;
 import static ru.job4j.solid.srp.ReportEngine.DATE_FORMAT;
 
 public class DollarSalaryReport implements Report {
-    private final DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-    private final Function<Double, Double> funcConvert = i -> (double) (i / 60);
+    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#0.00");
+    public static final Function<Double, Double> FUNCCONVERT = i -> (double) (i / 60);
     private Store store;
 
     public DollarSalaryReport(Store store) {
@@ -28,7 +28,7 @@ public class DollarSalaryReport implements Report {
             text.append(employee.getName()).append(";")
                     .append(DATE_FORMAT.format(employee.getHired().getTime())).append(";")
                     .append(DATE_FORMAT.format(employee.getFired().getTime())).append(";")
-                    .append(decimalFormat.format(funcConvert.apply(employee.getSalary()))).append(";")
+                    .append(DECIMAL_FORMAT.format(FUNCCONVERT.apply(employee.getSalary()))).append(";")
                     .append(System.lineSeparator());
         }
         return text.toString();
