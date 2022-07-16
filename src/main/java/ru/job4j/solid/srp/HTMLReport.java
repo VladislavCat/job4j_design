@@ -8,7 +8,6 @@ import java.util.function.Predicate;
 import static ru.job4j.solid.srp.ReportEngine.DATE_FORMAT;
 
 public class HTMLReport implements Report {
-    private final DecimalFormat decimalFormat = new DecimalFormat("#0.00");
     private Store store;
 
     public HTMLReport(Store store) {
@@ -29,7 +28,7 @@ public class HTMLReport implements Report {
             text.append("<h3>").append(employee.getName()).append(";")
                     .append(DATE_FORMAT.format(employee.getHired().getTime())).append(";")
                     .append(DATE_FORMAT.format(employee.getFired().getTime())).append(";")
-                    .append(decimalFormat.format(employee.getSalary()).replace('.', ','))
+                    .append(employee.getSalary())
                     .append(";</h3>")
                     .append(System.lineSeparator());
         }
