@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 import static ru.job4j.solid.srp.ReportEngine.DATE_FORMAT;
 
 public class HTMLReport implements Report {
+    private final DecimalFormat decimalFormat = new DecimalFormat("#0.00");
     private Store store;
 
     public HTMLReport(Store store) {
