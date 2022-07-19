@@ -13,7 +13,7 @@ public class PerimeterRectangleValidate extends RectangleValidateBeforeDraw {
      * @return
      */
     @Override
-    public boolean validate() {
+    public boolean validate(Rectangle rectangle) {
         if (rectangle.perimeter() <= 0) {
             throw new IllegalArgumentException("Периметр не может быть меньше нуля или равным нулю. Изменить длину сторон.");
         } else if (rectangle.perimeter() > 5000) {
