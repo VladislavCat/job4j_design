@@ -4,27 +4,26 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.job4j.solid.lsp.FreshConstants.TRASHFRESH;
+
 public class Trash implements Store {
     private final List<Food> storeFood = new ArrayList<>();
 
 
     @Override
-    public Food add(Food food) {
-        storeFood.add(food);
-        return get(food.getName());
+    public Food add(Food food, LocalDateTime todayDate) {
+        Food rsl = null;
+        if (checkFresh(food, todayDate)) {
+            storeFood.add(food);
+            rsl = get(food.getName());
+        }
+        return rsl;
     }
 
     @Override
     public boolean checkFresh(Food food, LocalDateTime todayDate) {
-        int freshPercent = CheckExpiryDate.checkDate(food.getCreateDate(),
-                food.getExpiryDate(), todayDate);
-        boolean rsl = false;
-        if (freshPercent == 0) {
-            add(food);
-            rsl = true;
-        }
-        return rsl;
-
+        int freshPercent = (int) getPercentLifeExpired(food, todayDate);
+        return freshPercent <= TRASHFRESH;
     }
 
     @Override
@@ -37,11 +36,6 @@ public class Trash implements Store {
 
     @Override
     public List<Food> getAll() {
-        return storeFood;
-    }
-
-    @Override
-    public boolean delete(String nameFood) {
-        return storeFood.remove(get(nameFood));
+        return new ArrayList<>(storeFood);
     }
 }

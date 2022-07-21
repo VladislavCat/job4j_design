@@ -9,21 +9,19 @@ public class Warehouse implements Store {
 
 
     @Override
-    public Food add(Food food) {
-        storeFood.add(food);
-        return get(food.getName());
+    public Food add(Food food, LocalDateTime todayDate) {
+        Food rsl = null;
+        if (checkFresh(food, todayDate)) {
+            storeFood.add(food);
+            rsl = get(food.getName());
+        }
+        return rsl;
     }
 
     @Override
     public boolean checkFresh(Food food, LocalDateTime todayDate) {
-        int freshPercent = CheckExpiryDate.checkDate(food.getCreateDate(),
-                food.getExpiryDate(), todayDate);
-        boolean rsl = false;
-        if (freshPercent > 75) {
-            add(food);
-            rsl = true;
-        }
-        return rsl;
+        int freshPercent = (int) getPercentLifeExpired(food, todayDate);
+        return freshPercent > FreshConstants.FRESHWAREHOUSE;
     }
 
     @Override
@@ -36,12 +34,6 @@ public class Warehouse implements Store {
 
     @Override
     public List<Food> getAll() {
-        return storeFood;
-    }
-
-
-    @Override
-    public boolean delete(String nameFood) {
-        return storeFood.remove(get(nameFood));
+        return new ArrayList<>(storeFood);
     }
 }

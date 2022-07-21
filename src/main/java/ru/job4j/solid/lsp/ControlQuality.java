@@ -6,14 +6,13 @@ import java.util.List;
 public class ControlQuality {
     private final List<Store> storeList;
 
-
     public ControlQuality(List<Store> storeList) {
         this.storeList = storeList;
     }
 
     public void addFood(Food food, LocalDateTime todayDate) {
         for (Store store : storeList) {
-            if (store.checkFresh(food, todayDate)) {
+            if (store.add(food, todayDate) != null) {
                 break;
             }
         }

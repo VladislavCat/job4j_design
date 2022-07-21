@@ -9,22 +9,29 @@ public class Shop implements Store {
 
 
     @Override
-    public Food add(Food food) {
-        storeFood.add(food);
-        return get(food.getName());
+    public Food add(Food food, LocalDateTime todayDate) {
+        Food rsl = null;
+        if (checkFresh(food, todayDate)) {
+            int freshPercent = (int) getPercentLifeExpired(food, todayDate);
+            if (freshPercent < FreshConstants.SHOPFRESH
+                    && freshPercent > FreshConstants.TRASHFRESH) {
+                    food.setPrice(food.getPrice() - food.getDiscount());
+            }
+            storeFood.add(food);
+            rsl = get(food.getName());
+        }
+        return rsl;
     }
 
     @Override
     public boolean checkFresh(Food food, LocalDateTime todayDate) {
-        int freshPercent = CheckExpiryDate.checkDate(food.getCreateDate(),
-                food.getExpiryDate(), todayDate);
+        int freshPercent = (int) getPercentLifeExpired(food, todayDate);
         boolean rsl = false;
-        if (freshPercent < 75 && freshPercent > 25) {
-            add(food);
+        if (freshPercent < FreshConstants.FRESHWAREHOUSE
+                && freshPercent > FreshConstants.SHOPFRESH) {
             rsl = true;
-        } else if (freshPercent < 25 && freshPercent > 0) {
-            food.setPrice(food.getPrice() - food.getDiscount());
-            add(food);
+        } else if (freshPercent < FreshConstants.SHOPFRESH
+                && freshPercent > FreshConstants.TRASHFRESH) {
             rsl = true;
         }
         return rsl;
@@ -40,11 +47,6 @@ public class Shop implements Store {
 
     @Override
     public List<Food> getAll() {
-        return storeFood;
-    }
-
-    @Override
-    public boolean delete(String nameFood) {
-        return storeFood.remove(get(nameFood));
+        return new ArrayList<>(storeFood);
     }
 }
