@@ -1,11 +1,9 @@
-package ru.job4j.solid.srp;
+package ru.job4j.solid;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.function.Predicate;
 
-import static ru.job4j.solid.srp.ReportEngine.DATE_FORMAT;
+import static ru.job4j.solid.ReportEngine.DATE_FORMAT;
 
 public class HTMLReport implements Report {
     private final DecimalFormat decimalFormat = new DecimalFormat("#0.00");

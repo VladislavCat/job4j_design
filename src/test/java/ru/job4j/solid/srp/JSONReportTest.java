@@ -1,6 +1,10 @@
 package ru.job4j.solid.srp;
 
 import org.junit.Test;
+import ru.job4j.solid.Employee;
+import ru.job4j.solid.JSONReport;
+import ru.job4j.solid.MemStore;
+import ru.job4j.solid.Report;
 
 import java.util.Calendar;
 

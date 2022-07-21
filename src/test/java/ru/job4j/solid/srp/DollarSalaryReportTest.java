@@ -1,13 +1,17 @@
 package ru.job4j.solid.srp;
 
 import org.junit.Test;
+import ru.job4j.solid.DollarSalaryReport;
+import ru.job4j.solid.Employee;
+import ru.job4j.solid.MemStore;
+import ru.job4j.solid.Report;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static ru.job4j.solid.srp.ReportEngine.DATE_FORMAT;
+import static ru.job4j.solid.ReportEngine.DATE_FORMAT;
 
 public class DollarSalaryReportTest {
 

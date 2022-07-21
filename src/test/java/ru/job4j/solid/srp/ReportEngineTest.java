@@ -3,11 +3,14 @@ package ru.job4j.solid.srp;
 import static org.junit.Assert.assertEquals;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ru.job4j.solid.srp.ReportEngine.DATE_FORMAT;
+import static ru.job4j.solid.ReportEngine.DATE_FORMAT;
 
 import org.junit.Test;
+import ru.job4j.solid.Employee;
+import ru.job4j.solid.MemStore;
+import ru.job4j.solid.Report;
+import ru.job4j.solid.ReportEngine;
 
-import java.time.ZonedDateTime;
 import java.util.Calendar;
 
 public class ReportEngineTest {

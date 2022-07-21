@@ -1,9 +1,13 @@
 package ru.job4j.solid.srp;
 
 import org.junit.Test;
+import ru.job4j.solid.Employee;
+import ru.job4j.solid.HTMLReport;
+import ru.job4j.solid.MemStore;
+import ru.job4j.solid.Report;
 
 import java.util.Calendar;
-import static ru.job4j.solid.srp.ReportEngine.DATE_FORMAT;
+import static ru.job4j.solid.ReportEngine.DATE_FORMAT;
 
 import static org.junit.Assert.assertEquals;
 

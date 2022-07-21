@@ -1,16 +1,18 @@
-package ru.job4j.solid.srp;
+package ru.job4j.solid;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class ReportEngine implements Report {
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd:MM:yyyy HH:mm");
+import static ru.job4j.solid.ReportEngine.DATE_FORMAT;
 
+public class DollarSalaryReport implements Report {
+    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#0.00");
+    public static final Function<Double, Double> FUNCCONVERT = i -> (double) (i / 60);
     private Store store;
 
-    public ReportEngine(Store store) {
+    public DollarSalaryReport(Store store) {
         this.store = store;
     }
 
@@ -19,11 +21,13 @@ public class ReportEngine implements Report {
         StringBuilder text = new StringBuilder();
         text.append("Name; Hired; Fired; Salary;")
                 .append(System.lineSeparator());
-        for (Employee employee : store.findBy(filter)) {
+        List<Employee> employees = store.findBy(filter);
+        employees.sort(((em1, em2) -> Double.compare(em2.getSalary(), em1.getSalary())));
+        for (Employee employee : employees) {
             text.append(employee.getName()).append(";")
                     .append(DATE_FORMAT.format(employee.getHired().getTime())).append(";")
                     .append(DATE_FORMAT.format(employee.getFired().getTime())).append(";")
-                    .append(employee.getSalary()).append(";")
+                    .append(DECIMAL_FORMAT.format(FUNCCONVERT.apply(employee.getSalary()))).append(";")
                     .append(System.lineSeparator());
         }
         return text.toString();

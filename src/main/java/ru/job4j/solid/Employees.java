@@ -1,4 +1,4 @@
-package ru.job4j.solid.srp;
+package ru.job4j.solid;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;

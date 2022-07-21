@@ -1,9 +1,8 @@
-package ru.job4j.solid.srp;
+package ru.job4j.solid;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.Calendar;
 import java.util.function.Predicate;
 
 public class JSONReport implements Report {
