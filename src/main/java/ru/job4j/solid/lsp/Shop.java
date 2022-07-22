@@ -9,8 +9,8 @@ public class Shop implements Store {
 
 
     @Override
-    public Food add(Food food, LocalDateTime todayDate) {
-        Food rsl = null;
+    public boolean add(Food food, LocalDateTime todayDate) {
+        boolean rsl = false;
         if (checkFresh(food, todayDate)) {
             int freshPercent = (int) getPercentLifeExpired(food, todayDate);
             if (freshPercent < FreshConstants.SHOPFRESH
@@ -18,7 +18,7 @@ public class Shop implements Store {
                     food.setPrice(food.getPrice() - food.getDiscount());
             }
             storeFood.add(food);
-            rsl = get(food.getName());
+            rsl = true;
         }
         return rsl;
     }
@@ -28,9 +28,6 @@ public class Shop implements Store {
         int freshPercent = (int) getPercentLifeExpired(food, todayDate);
         boolean rsl = false;
         if (freshPercent < FreshConstants.FRESHWAREHOUSE
-                && freshPercent > FreshConstants.SHOPFRESH) {
-            rsl = true;
-        } else if (freshPercent < FreshConstants.SHOPFRESH
                 && freshPercent > FreshConstants.TRASHFRESH) {
             rsl = true;
         }

@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface Store {
-    Food add(Food food, LocalDateTime todayDate);
+    boolean add(Food food, LocalDateTime todayDate);
     boolean checkFresh(Food food, LocalDateTime todayDate);
     Food get(String nameFood);
     List<Food> getAll();

@@ -12,8 +12,10 @@ public class ControlQuality {
 
     public void addFood(Food food, LocalDateTime todayDate) {
         for (Store store : storeList) {
-            if (store.add(food, todayDate) != null) {
-                break;
+            if (store.checkFresh(food, todayDate)) {
+                if (store.add(food, todayDate)) {
+                    break;
+                }
             }
         }
     }

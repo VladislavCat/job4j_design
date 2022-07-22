@@ -11,11 +11,11 @@ public class Trash implements Store {
 
 
     @Override
-    public Food add(Food food, LocalDateTime todayDate) {
-        Food rsl = null;
+    public boolean add(Food food, LocalDateTime todayDate) {
+        boolean rsl = false;
         if (checkFresh(food, todayDate)) {
             storeFood.add(food);
-            rsl = get(food.getName());
+            rsl = true;
         }
         return rsl;
     }
