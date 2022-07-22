@@ -4,51 +4,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleParking implements Parking {
-    List<Auto> passStore = new ArrayList<>();
-    List<Auto> truckStore = new ArrayList<>();
-    int placeForPassengerAuto;
-    int placeForTruck;
+    private final List<Auto> passStore;
+    private final List<Auto> truckStore;
+    private int placeForPassengerAuto;
+    private int placeForTruck;
 
     public SimpleParking(int placeForPassengerAuto, int placeForTruck) {
         this.placeForPassengerAuto = placeForPassengerAuto;
         this.placeForTruck = placeForTruck;
+        passStore = new ArrayList<>(placeForPassengerAuto);
+        truckStore = new ArrayList<>(placeForTruck);
     }
 
     @Override
     public boolean addAutoInPark(Auto auto) {
         boolean rsl = false;
-        if (auto instanceof Truck) {
-            rsl = addTruckInParking(auto);
-        } else {
-            rsl = addPassengerAutoInParking(auto);
-        }
-        return rsl;
-    }
-
-    private boolean addTruckInParking(Auto auto) {
-        if (placeForTruck == 0 && placeForPassengerAuto <= auto.getSize()) {
-            throw new IllegalArgumentException("Нет места для грузовиков на парковке!");
-        } else if (placeForTruck == 0 && placeForPassengerAuto >= auto.getSize()) {
-            passStore.add(auto);
-            placeForPassengerAuto -= auto.getSize();
-        } else {
-            truckStore.add(auto);
-            placeForTruck--;
-        }
-        return true;
-    }
-
-    private boolean addPassengerAutoInParking(Auto auto) {
-        if (placeForPassengerAuto == 0 && placeForTruck == 0) {
-            throw new IllegalArgumentException("На парковке нет мест!");
-        } else if (placeForPassengerAuto == 0 && placeForTruck >= 1) {
-            truckStore.add(auto);
-            placeForTruck--;
-        } else {
+        int sizeAuto = auto.getSize();
+        if (sizeAuto > PassAuto.SIZEPASS) {
+            if (placeForTruck < PassAuto.SIZEPASS && placeForPassengerAuto >= sizeAuto) {
+                    passStore.add(auto);
+                    placeForPassengerAuto -= sizeAuto;
+                     rsl = true;
+            } else if (placeForTruck >= PassAuto.SIZEPASS) {
+                    truckStore.add(auto);
+                    placeForTruck--;
+                    rsl = true;
+            }
+        } else if (placeForPassengerAuto >= PassAuto.SIZEPASS) {
             passStore.add(auto);
             placeForPassengerAuto--;
+            rsl = true;
         }
-        return true;
+        return rsl;
     }
 
     @Override

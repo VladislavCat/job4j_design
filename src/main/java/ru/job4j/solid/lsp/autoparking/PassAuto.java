@@ -1,9 +1,9 @@
 package ru.job4j.solid.lsp.autoparking;
 
 public class PassAuto implements Auto {
-    private final int size = 1;
+    public static final int SIZEPASS = 1;
     @Override
     public int getSize() {
-        return size;
+        return SIZEPASS;
     }
 }
