@@ -2,12 +2,14 @@ package ru.job4j.solid.lsp.autoparking;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
 
 public class ParkingTest {
-
+    @Ignore
     @Test
     public void whenParkTwoPassCarAndOneTrack() {
         Parking parking = new SimpleParking(2, 1);
@@ -20,7 +22,7 @@ public class ParkingTest {
         assertThat(parking.getAllPassAuto(), is(List.of(passAuto1, passAuto2)));
         assertThat(parking.getAllTruckAuto(), is(List.of(truck)));
     }
-
+    @Ignore
     @Test
     public void whenParkTwoTrack() {
         Parking parking = new SimpleParking(2, 1);
@@ -31,7 +33,7 @@ public class ParkingTest {
         assertThat(parking.getAllPassAuto(), is(List.of(truck2)));
         assertThat(parking.getAllTruckAuto(), is(List.of(truck1)));
     }
-
+    @Ignore
     @Test (expected = IllegalArgumentException.class)
     public void whenParkBigTrack() {
         Parking parking = new SimpleParking(2, 1);
@@ -40,7 +42,7 @@ public class ParkingTest {
         parking.addAutoInPark(truck1);
         parking.addAutoInPark(truck2);
     }
-
+    @Ignore
     @Test
     public void whenParkTwoPassCarInTrackParking() {
         Parking parking = new SimpleParking(0, 2);
