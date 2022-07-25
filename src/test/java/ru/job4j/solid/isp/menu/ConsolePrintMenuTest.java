@@ -20,10 +20,6 @@ public class ConsolePrintMenuTest {
         menu.add("Написать код", "Написать тесты", STUB_ACTION);
         consoleMenuPrinter.print(menu);
         String actual = outputStream.toString();
-        assertEquals("""
-                1.Написать код\r
-                \t1.1.Написать классы\r
-                \t1.2.Написать тесты\r
-                """, actual);
+        assertEquals("1.Написать код\r\n\t1.1.Написать классы\r\n\t1.2.Написать тесты\r\n", actual);
     }
 }
