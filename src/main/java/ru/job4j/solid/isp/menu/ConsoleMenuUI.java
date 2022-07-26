@@ -6,23 +6,27 @@ import java.util.Scanner;
 
 public class ConsoleMenuUI {
     public static final ActionDelegate STUB_ACTION = System.out::println;
+    public static final int WRONGINDEX = 0;
+    public static final int ADDINDEX = 1;
+    public static final int SNOWALL = 2;
+    public static final int FINDFORNAME = 3;
+    public static final int CLOSEINDEX = 4;
 
     private void init(Menu menu, MenuPrinter menuPrinter, Input input, List<Action> actions) {
-        printCommand();
         boolean run = true;
         while (run) {
             printCommand();
             int i = input.askInt("Введите номер нужной команды.");
-            if (i <= 0 || i > 4) {
+            if (i <= WRONGINDEX || i > CLOSEINDEX) {
                 System.out.println("Введите число еще раз.");
-            } else if (i == 4) {
+            } else if (i == CLOSEINDEX) {
                 run = false;
             }
-            if (i == 1) {
+            if (i == ADDINDEX) {
                 actions.get(0).action();
-            } else if (i == 2) {
+            } else if (i == SNOWALL) {
                 actions.get(1).action();
-            } else if (i == 3) {
+            } else if (i == FINDFORNAME) {
                 actions.get(2).action();
             }
         }
@@ -30,9 +34,9 @@ public class ConsoleMenuUI {
 
     private void printCommand() {
         System.out.println("""
-                1.Добавить новую задачу\r
-                2.Вывести все задачи на день.\r
-                3.Найти задачу по имени.\r
+                1.Добавить новую задачу
+                2.Вывести все задачи на день.
+                3.Найти задачу по имени.
                 4.Закрыть приложение.""");
     }
 
