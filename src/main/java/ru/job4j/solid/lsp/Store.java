@@ -8,6 +8,7 @@ public interface Store {
     boolean checkFresh(Food food, LocalDateTime todayDate);
     Food get(String nameFood);
     List<Food> getAll();
+    void deleteAllProduct();
     default double getPercentLifeExpired(Food food, LocalDateTime todayDate) {
         double oneHundredPercent  = dateToDays(food.getExpiryDate(), food.getCreateDate());
         int rsl = (int) (dateToDays(food.getExpiryDate(), todayDate) / (oneHundredPercent / 100));

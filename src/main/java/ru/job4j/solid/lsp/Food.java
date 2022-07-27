@@ -59,4 +59,15 @@ public class Food {
     public int hashCode() {
         return Objects.hash(name, expiryDate, createDate, price, discount);
     }
+
+    @Override
+    public String toString() {
+        return "Food{"
+                + "name='" + name + '\''
+                + ", expiryDate=" + expiryDate
+                + ", createDate=" + createDate
+                + ", price=" + price
+                + ", discount=" + discount
+                + '}';
+    }
 }

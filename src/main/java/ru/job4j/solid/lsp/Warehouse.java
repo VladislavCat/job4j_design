@@ -36,4 +36,9 @@ public class Warehouse implements Store {
     public List<Food> getAll() {
         return new ArrayList<>(storeFood);
     }
+
+    @Override
+    public void deleteAllProduct() {
+        storeFood.clear();
+    }
 }

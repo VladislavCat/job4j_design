@@ -1,6 +1,7 @@
 package ru.job4j.solid.lsp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControlQuality {
@@ -24,5 +25,14 @@ public class ControlQuality {
         for (Food food : foodList) {
             addFood(food, todayDate);
         }
+    }
+
+    public void resortFood(LocalDateTime todayDate) {
+        List<Food> foodList = new ArrayList<>();
+        for (Store store : storeList) {
+            foodList.addAll(store.getAll());
+            store.deleteAllProduct();
+        }
+        addManyFood(foodList, todayDate);
     }
 }
