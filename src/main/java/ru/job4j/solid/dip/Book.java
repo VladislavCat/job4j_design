@@ -6,13 +6,15 @@ package ru.job4j.solid.dip;
  * и зависеть от абстракций, а не от реализаций
  */
 public class Book {
+        private final String name;
         private final String text;
         private final PrinterConsole printerConsole;
 
     /**
      *Модуль Book зависит от низкоуровневой реализации, что является нарушением принципа инверсий зависимостей
      */
-        public Book(String text, PrinterConsole printerConsole) {
+        public Book(String name, String text, PrinterConsole printerConsole) {
+            this.name = name;
             this.text = text;
             this.printerConsole = printerConsole;
         }
@@ -20,4 +22,12 @@ public class Book {
         public void printBook() {
             printerConsole.print(text);
         }
+
+    public String getText() {
+        return text;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
